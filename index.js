@@ -60,7 +60,11 @@ function monkeypatch() {
     var estraverseFb = eslintMod.require("estraverse-fb");
     estraverses.push(estraverseFb);
     assign(estraverseFb.VisitorKeys, t.VISITOR_KEYS);
-  } catch (err) {}
+  } catch (err) {
+    throw new Error("babel-eslint isn't compatible with ESLint >= 2.3.0 at the moment.\n" +
+      "(installing estraverse-fb might work depending on the rules you have turned on.\n" +
+      "Would recommend pinning ESLint to 2.2.x until https://github.com/eslint/eslint/issues/5476 is fixed.")
+  }
 
   // ESLint v1.9.0 uses estraverse directly to work around https://github.com/npm/npm/issues/9663
   var estraverseOfEslint = eslintMod.require("estraverse");
